@@ -1,9 +1,16 @@
+### prerequisites
+- Docker
+- Terraform
+- Jenkins with docker pipeline plugin
+- AWS account
+
 ### Project description
 deploying Java spring boot application to production using Jenkins as CI/CD, Terraform as IAC, and Docker to build container and push to docker hub
 
 ### Jenkinsfile breakdown:
 - environment 
 ```diff 
+    # Using jenkins global credentials
     environment {
         USER_CREDENTIALS = credentials('docker_account') # Docker credentials 
         DOCKER_IMAGE = "sherifemad21/school-backend:v-${BUILD_ID}" # Docker image to be built and pushed
@@ -53,7 +60,7 @@ deploying Java spring boot application to production using Jenkins as CI/CD, Te
             }
         }
 ```
-- Stage(3) Login to dockerhub using docker credentials
+- Stage(3) Login to dockerhub using docker credentials from jenkins global credentials
 ```diff
         stage('Docker Credentials') {
             steps {
@@ -95,7 +102,8 @@ deploying Java spring boot application to production using Jenkins as CI/CD, Te
             }
         }
 ```
-- Stage (6) Edit templates to pass the docker credentials and aws key to docker run script and terraform variables
+- Stage (6) Edit templates to pass the docker credentials and aws key from jenkins global credentials
+            to docker run script and terraform variables
 ```diff 
         stage('Edit files') {
             steps {
@@ -226,7 +234,7 @@ variable access_key {}
 
 variable secret_key {}
 
--- terraform.tfvats ------------------------------------
+-- terraform.tfvars ------------------------------------
 vpc_cider_block = "10.0.0.0/16" # local network between all subnets inside vpc
 
 subnet_cider_block = "10.0.0.0/24" # allow global access
