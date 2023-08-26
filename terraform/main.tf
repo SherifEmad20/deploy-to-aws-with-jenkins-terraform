@@ -1,13 +1,13 @@
-#------------ PROVIDER -------------------
+# ------------------------------- PROVIDER -------------------------------
 provider "aws" {
     region = "eu-west-3"
     access_key = var.access_key
     secret_key = var.secret_key
 }
-#------------ PROVIDER -------------------
+# ------------------------------- PROVIDER -------------------------------
 
 
-#------------ VARIABLES -------------------
+# ------------------------------- VARIABLES -------------------------------
 variable vpc_cider_block {}
 
 variable subnet_cider_block {}
@@ -28,14 +28,10 @@ variable access_key {}
 
 variable secret_key {}
 
-#------------ VARIABLES -------------------
+# ------------------------------- VARIABLES -------------------------------
 
 
-
-
-
-
-#------------ RESOURCES -------------------
+# ------------------------------- RESOURCES -------------------------------
 # Custom vpc for dev env
 resource "aws_vpc" "myapp-vpc" {
   cidr_block = var.vpc_cider_block
@@ -143,6 +139,14 @@ resource "aws_security_group" "myapp-sg" {
     }
 }
 
+# ------------------------------- RESOURCES -------------------------------
 
-#------------ RESOURCES -------------------
 
+
+# -------------------------------- OUTPUTS --------------------------------
+
+output "server_ip" {
+  value = aws_instance.my-app-server.public_ip
+}
+
+# -------------------------------- OUTPUTS --------------------------------

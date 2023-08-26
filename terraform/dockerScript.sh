@@ -12,6 +12,6 @@ docker logout
 
 docker login -uUsername -pPassword
 
-docker pull DockerImageToPull
+docker pull sherifemad21/school-backend:v-1
 
-docker run -d -p 8080:3000 DockerImageToPull
+docker run -d -p 8080:8081 sherifemad21/school-backend:v-1
