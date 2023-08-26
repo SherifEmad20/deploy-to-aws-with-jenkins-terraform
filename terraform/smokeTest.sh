@@ -1,7 +1,5 @@
 #! /bin/bash
 
-cd ~/SpringApp/terraform
-
 echo "Waiting for application to run..."
 
 sleep 120

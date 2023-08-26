@@ -29,7 +29,7 @@ pipeline {
             }
         }
         
-        stage('Maven build') {dev
+        stage('Maven build') {
             agent {
                 docker {
                     image 'openjdk:latest'
