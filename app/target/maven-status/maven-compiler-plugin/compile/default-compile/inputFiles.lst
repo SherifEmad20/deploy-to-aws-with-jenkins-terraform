@@ -1,0 +1,9 @@
+/home/sherif/proj/course-management-crud/app/src/main/java/com/example/school_system/SchoolSystemApplication.java
+/home/sherif/proj/course-management-crud/app/src/main/java/com/example/school_system/Course/Course.java
+/home/sherif/proj/course-management-crud/app/src/main/java/com/example/school_system/Student/Student.java
+/home/sherif/proj/course-management-crud/app/src/main/java/com/example/school_system/Student/StudentRepo.java
+/home/sherif/proj/course-management-crud/app/src/main/java/com/example/school_system/Student/StudentController.java
+/home/sherif/proj/course-management-crud/app/src/main/java/com/example/school_system/Student/StudentService.java
+/home/sherif/proj/course-management-crud/app/src/main/java/com/example/school_system/Course/CourseController.java
+/home/sherif/proj/course-management-crud/app/src/main/java/com/example/school_system/Course/CourseService.java
+/home/sherif/proj/course-management-crud/app/src/main/java/com/example/school_system/Course/CourseRepo.java
