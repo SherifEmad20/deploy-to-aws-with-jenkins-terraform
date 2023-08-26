@@ -1,10 +1,9 @@
-// ${BUILD_ID}
 pipeline {
     agent any
 
     environment {
         USER_CREDENTIALS = credentials('docker_account')
-        DOCKER_IMAGE = "sherifemad21/school-backend:v-1"
+        DOCKER_IMAGE = "sherifemad21/school-backend:v-${BUILD_ID}"
         DOCKER_USERNAME = "${USER_CREDENTIALS_USR}"
         DOCKER_PASSWORD = "${USER_CREDENTIALS_PSW}"
 
@@ -15,36 +14,36 @@ pipeline {
     }
 
     stages {
-        // stage('Maven test') {
-        //     agent {
-        //         docker { 
-        //             image 'openjdk:latest'
-        //         }
-        //     }
+        stage('Maven test') {
+            agent {
+                docker { 
+                    image 'openjdk:latest'
+                }
+            }
 
-        //     steps {
-        //         dir("./app") {
-        //             sh "chmod +x mvnw"
-        //             sh "./mvnw test"
-        //         }
-        //     }
-        // }
+            steps {
+                dir("./app") {
+                    sh "chmod +x mvnw"
+                    sh "./mvnw test"
+                }
+            }
+        }
         
-        // stage('Maven build') {dev
-        //     agent {
-        //         docker {
-        //             image 'openjdk:latest'
-        //         }
-        //     }
+        stage('Maven build') {dev
+            agent {
+                docker {
+                    image 'openjdk:latest'
+                }
+            }
 
-        //     steps {
-        //         dir("./app") {
-        //             sh "chmod +x mvnw"
-        //             sh "./mvnw clean"
-        //             sh "./mvnw install"
-        //         }
-        //     }
-        // }
+            steps {
+                dir("./app") {
+                    sh "chmod +x mvnw"
+                    sh "./mvnw clean"
+                    sh "./mvnw install"
+                }
+            }
+        }
         
         stage('Docker Credentials') {
             steps {
@@ -55,20 +54,20 @@ pipeline {
             }
         }
 
-        // stage('Docker Build') {
-        //     steps {
-        //         dir("./app") {
-        //             sh "docker build -t ${DOCKER_IMAGE} ."
-        //         }
-        //     }
-        // }
+        stage('Docker Build') {
+            steps {
+                dir("./app") {
+                    sh "docker build -t ${DOCKER_IMAGE} ."
+                }
+            }
+        }
 
-        // stage('Docker Push') {
-        //     steps {
-        //         sh "docker push ${DOCKER_IMAGE}"
-        //         sh "docker rmi -f ${DOCKER_IMAGE}"
-        //     }
-        // }
+        stage('Docker Push') {
+            steps {
+                sh "docker push ${DOCKER_IMAGE}"
+                sh "docker rmi -f ${DOCKER_IMAGE}"
+            }
+        }
 
         stage('Edit files') {
             steps {
