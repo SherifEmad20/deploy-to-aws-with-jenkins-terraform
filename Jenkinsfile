@@ -30,7 +30,7 @@ pipeline {
         //     }
         // }
         
-        // stage('Maven build') {
+        // stage('Maven build') {dev
         //     agent {
         //         docker {
         //             image 'openjdk:latest'
@@ -85,9 +85,9 @@ pipeline {
             }
         }
 
-        stage("Deploy to AWS dev vpc") {
+        stage("Deploy to AWS IAC") {
             when {
-                branch 'dev'
+                branch 'master'
             }
 
             steps {
@@ -96,11 +96,6 @@ pipeline {
                     sh "terraform plan"
                     sh 'terraform destroy --auto-approve'
                     sh 'terraform apply --auto-approve'
-                    // sh 'terraform output  -raw server_ip > temp.txt '
-                    // script {
-                    // serverIP = readFile('tump.txt').trim()
-                    // }
-
                 }
             }
 
@@ -118,5 +113,30 @@ pipeline {
             }
         }
        
+        stage("Smoke test on deployment") {
+            when {
+                branch 'master'
+            }
+
+            steps {
+                dir("./terraform") {
+                    sh 'chmod +x smokeTest.sh'
+                    sh "./smokeTest.sh"
+                }
+            }
+
+            post {
+                success {
+                    echo "Smoke test successful"
+                }
+
+                failure {
+                    echo "Public IP not available yet. Please wait and try again later."
+                }
+                
+            }
+        }
+
+
     }
 }
